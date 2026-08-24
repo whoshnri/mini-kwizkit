@@ -1,0 +1,516 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+ --rubric-black: #1c1c1c;
+ --rubric-slate: #e4e2dc;
+ --rubric-off-white: #f5f5f3;
+ --rubric-parchment: #e8e3d8;
+ --rubric-muted: #5c5b57;
+ --rubric-border: #d9d6ce;
+ --rubric-success: #2f6b4f;
+ --rubric-warning: #a16207;
+ --rubric-danger: #b42318;
+ --rubric-info: #1d4ed8;
+
+ --background: var(--rubric-off-white);
+ --foreground: var(--rubric-black);
+ --surface: #ffffff;
+ --surface-strong: #ffffff;
+ --surface-muted: #fcfcfb;
+ --surface-muted-full: #f3f2ef;
+ --border: var(--rubric-border);
+ --muted: var(--rubric-muted);
+ --on-accent: var(--background);
+ --ring: var(--rubric-black);
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #f5f5f3;
+  --surface: #1e1e1e;
+  --surface-strong: #252525;
+  --surface-muted: #2a2a2a;
+  --surface-muted-full: #2e2e2e;
+  --border: #333333;
+  --muted: #b4b3af;
+  --on-accent: #121212;
+  --ring: #f5f5f3;
+
+  --rubric-slate: #2a2a2a;
+  --rubric-parchment: #2a2a2a;
+  --rubric-muted: #b4b3af;
+  --rubric-border: #333333;
+  color-scheme: dark;
+}
+ 
+html {
+ background: var(--background);
+ min-height: 100%;
+ font-size: 85%;
+}
+
+.auth-logo {
+ display: block;
+ height: auto;
+ filter: none;
+}
+
+button {
+ cursor: pointer;
+}
+
+body {
+ min-height: 100vh;
+ background:
+ radial-gradient(circle at top left, rgba(232, 227, 216, 0.75), transparent 28%),
+ radial-gradient(circle at top right, rgba(224, 221, 214, 0.6), transparent 24%),
+ var(--background);
+ color: var(--foreground);
+ font-feature-settings:"cv02","cv03","cv04","cv11";
+}
+
+.dark body {
+ background: var(--background);
+}
+
+::selection {
+ background: var(--foreground);
+ color: var(--background);
+}
+
+a {
+ color: inherit;
+}
+
+@layer components {
+ .rubric-shell {
+ @apply mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8;
+ }
+
+ .rubric-page {
+ @apply relative overflow-hidden;
+ }
+
+ .rubric-page::before {
+ content: "";
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ background-image: linear-gradient(color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px),
+   linear-gradient(90deg, color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px);
+ background-size: 42px 42px;
+ mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 88%);
+ }
+
+ .rubric-card {
+ @apply rounded-2xl border;
+ background: var(--surface);
+ border-color: var(--border);
+ backdrop-filter: blur(0px);
+ }
+
+ .rubric-card-strong {
+ background: var(--surface-strong);
+ border-color: var(--border);
+ }
+
+ .rubric-card-muted {
+ background: var(--surface-muted);
+ border-color: var(--border);
+ }
+
+ .rubric-kicker {
+ /* Remove eyebrow/kicker texts globally as requested */
+ display: none !important;
+ }
+
+ .rubric-title {
+ @apply text-4xl font-medium tracking-[-0.03em] md:text-6xl;
+ }
+
+ .rubric-section-title {
+ @apply text-2xl font-medium tracking-[-0.02em] md:text-3xl;
+ }
+
+ .rubric-body {
+ color: var(--muted);
+ }
+
+ .rubric-muted {
+ color: var(--muted);
+ }
+
+ .rubric-divider {
+ border-color: var(--border);
+ }
+
+ .rubric-button-primary,
+ .rubric-button-secondary,
+ .rubric-button-ghost {
+ @apply inline-flex items-center cursor-pointer justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-all duration-150 active:scale-[0.98];
+ }
+
+  .rubric-button-primary {
+    background: var(--foreground);
+    color: var(--background) !important;
+    border: 1px solid var(--foreground);
+  }
+
+  .dark .rubric-button-primary {
+    background: var(--foreground);
+    color: var(--background) !important;
+    border: 1px solid var(--foreground);
+  }
+
+  .rubric-button-primary:hover {
+    opacity: 0.92;
+  }
+
+ .rubric-button-secondary {
+ border: 1px solid var(--foreground);
+ color: var(--foreground) !important;
+ background: transparent;
+ }
+
+ .dark .rubric-button-secondary {
+ border-color: var(--border);
+ color: var(--foreground);
+ }
+
+ .rubric-button-ghost {
+ color: var(--muted) !important;
+ background: transparent;
+ }
+
+ .rubric-button-ghost:hover {
+ background: color-mix(in srgb, var(--foreground) 6%, transparent);
+ }
+
+ .rubric-tag {
+ @apply inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium;
+ border-color: var(--border);
+ background: var(--surface-muted);
+ color: var(--muted);
+ }
+
+ .rubric-input {
+ @apply w-full rounded-full border px-5 py-3 text-sm outline-none transition-colors;
+ background: var(--surface-strong);
+ border-color: var(--border);
+ color: var(--foreground);
+ }
+
+ .rubric-input:focus {
+ border-color: var(--foreground);
+ box-shadow: 0 0 0 3px color-mix(in srgb, var(--foreground) 12%, transparent);
+ }
+
+ .rubric-input::placeholder,
+ .theme-input::placeholder {
+ color: var(--muted);
+ }
+
+ .rubric-surface {
+ background: var(--surface-strong);
+ border-color: var(--border);
+ }
+
+ .theme-bg {
+ background: var(--background);
+ }
+
+ .theme-bg-subtle {
+ background: var(--surface-muted);
+ }
+
+ .theme-text {
+ color: var(--foreground);
+ }
+
+ .theme-text-secondary {
+ color: var(--muted);
+ }
+
+ .theme-text-accent {
+ color: var(--foreground);
+ }
+
+ .theme-border-color {
+ border-color: var(--border);
+ }
+
+ .theme-border-color-accent {
+ border-color: var(--foreground);
+ }
+
+ .theme-bg-accent {
+ background: var(--foreground);
+ }
+
+ .theme-button-primary {
+ @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-all duration-150 active:scale-[0.98];
+ background: var(--foreground);
+ color: var(--background);
+ }
+
+ .theme-button-secondary {
+ @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-all duration-150 active:scale-[0.98];
+ border: 1px solid var(--foreground);
+ color: var(--foreground);
+ background: transparent;
+ }
+
+ .dark .theme-button-secondary {
+ border-color: var(--border);
+ color: var(--foreground);
+ }
+
+ .theme-button-danger {
+ @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-all duration-150 active:scale-[0.98];
+ background: var(--rubric-danger);
+ color: #ffffff;
+ }
+
+ .theme-input {
+ @apply h-12 w-full rounded-full border px-5 text-sm outline-none transition-colors;
+ background: var(--surface-strong);
+ border-color: var(--border);
+ color: var(--foreground);
+ }
+
+.theme-input:focus {
+ border-color: var(--foreground);
+ box-shadow: 0 0 0 3px color-mix(in srgb, var(--foreground) 12%, transparent);
+}
+
+.theme-input:-webkit-autofill,
+.theme-input:-webkit-autofill:hover,
+.theme-input:-webkit-autofill:focus,
+.rubric-input:-webkit-autofill {
+ -webkit-text-fill-color: var(--foreground);
+ caret-color: var(--foreground);
+ transition: background-color 99999s ease-out;
+ box-shadow: 0 0 0 1000px var(--surface-strong) inset;
+}
+
+.theme-input.phone-input {
+ display: flex;
+ align-items: center;
+ gap: 0.5rem;
+ padding-left: 1rem;
+}
+
+.theme-input.phone-input input {
+ background: transparent;
+ border: 0;
+ color: var(--foreground);
+ outline: none;
+ width: 100%;
+}
+
+.theme-input.phone-input .PhoneInputCountry {
+ margin-right: 0.25rem;
+}
+
+ .rubric-empty-state {
+ @apply rounded-xl border border-dashed px-4 py-12 text-center text-sm;
+ border-color: var(--border);
+ background: var(--surface-muted);
+ color: var(--muted);
+ }
+
+ .rubric-register-shell {
+ overflow-x: auto;
+ border-radius: 0.5rem;
+ border: 1px solid var(--border);
+ background: var(--surface-strong);
+ box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+ }
+
+ .rubric-register-table {
+ width: max-content;
+ min-width: 100%;
+ border-collapse: collapse;
+ text-align: left;
+ font-size: 0.875rem;
+ line-height: 1.25rem;
+ color: var(--foreground);
+ }
+
+ .rubric-register-table :is(th, td) {
+ border: 1px solid var(--border);
+ }
+
+ .rubric-register-head {
+ background: var(--surface-muted);
+ color: var(--muted);
+ }
+
+ .rubric-register-sticky-left {
+ position: sticky;
+ left: 0;
+ z-index: 20;
+ min-width: 200px;
+ width: 200px;
+ background: var(--surface-muted-full);
+ box-shadow: 4px 0 8px -4px rgba(0, 0, 0, 0.1);
+ }
+
+ .rubric-register-sticky-right {
+ position: sticky;
+ right: 0;
+ z-index: 20;
+ min-width: 72px;
+ width: 72px;
+ background: var(--surface-muted-full);
+ box-shadow: -4px 0 8px -4px rgba(0, 0, 0, 0.1);
+ }
+
+ .rubric-register-table tbody .rubric-register-sticky-left,
+ .rubric-register-table tbody .rubric-register-sticky-right {
+ z-index: 10;
+ background: inherit;
+ }
+
+ .rubric-register-row-even {
+ background: var(--surface-strong);
+ }
+
+ .rubric-register-row-odd {
+ background: color-mix(in srgb, var(--surface-muted) 55%, var(--surface-strong));
+ }
+
+ .rubric-register-session-head {
+ min-width: 132px;
+ padding: 0.5rem;
+ font-weight: 600;
+ vertical-align: middle;
+ }
+
+ .rubric-register-session-cell {
+ min-width: 132px;
+ padding: 0.25rem 0.5rem;
+ vertical-align: middle;
+ }
+
+ /* Attendance status pills — edit these to change register cell colors */
+ .attendance-pill {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 0.25rem;
+ width: 100%;
+ min-height: 2.25rem;
+ padding: 0 0.625rem;
+ border-radius: 9999px;
+ border: 1px solid transparent;
+ font-size: 0.75rem;
+ font-weight: 600;
+ line-height: 1;
+ }
+
+ .attendance-pill-trigger {
+ cursor: pointer;
+ transition: opacity 150ms ease, box-shadow 150ms ease;
+ }
+
+ .attendance-pill-trigger:hover:not(:disabled) {
+ opacity: 0.92;
+ }
+
+ .attendance-pill-trigger:disabled {
+ cursor: not-allowed;
+ opacity: 0.55;
+ }
+
+ .attendance-pill-dirty {
+ box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 35%, transparent);
+ }
+
+ .attendance-pill-swatch {
+ display: inline-block;
+ height: 0.625rem;
+ width: 0.625rem;
+ flex-shrink: 0;
+ border-radius: 9999px;
+ }
+
+ .attendance-pill-present {
+ background: color-mix(in srgb, var(--rubric-success) 18%, var(--surface-strong));
+ border-color: color-mix(in srgb, var(--rubric-success) 35%, transparent);
+ color: var(--rubric-success);
+ }
+
+ .attendance-pill-absent {
+ background: color-mix(in srgb, var(--rubric-danger) 14%, var(--surface-strong));
+ border-color: color-mix(in srgb, var(--rubric-danger) 30%, transparent);
+ color: var(--rubric-danger);
+ }
+
+ .attendance-pill-late {
+ background: color-mix(in srgb, var(--rubric-warning) 16%, var(--surface-strong));
+ border-color: color-mix(in srgb, var(--rubric-warning) 32%, transparent);
+ color: var(--rubric-warning);
+ }
+
+ .attendance-pill-excused {
+ background: color-mix(in srgb, var(--rubric-info) 14%, var(--surface-strong));
+ border-color: color-mix(in srgb, var(--rubric-info) 30%, transparent);
+ color: var(--rubric-info);
+ }
+
+ .attendance-pill-swatch.attendance-pill-present,
+ .attendance-pill-swatch.attendance-pill-absent,
+ .attendance-pill-swatch.attendance-pill-late,
+ .attendance-pill-swatch.attendance-pill-excused {
+ background: currentColor;
+ border: none;
+ }
+
+ .rubric-icon-well {
+ @apply flex shrink-0 items-center justify-center rounded-2xl;
+ background: var(--surface-muted);
+ color: var(--foreground);
+ }
+
+ .theme-select {
+ @apply bg-no-repeat pr-10;
+ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23888780' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+ background-position: right 0.85rem center;
+ background-size: 1rem 1rem;
+ appearance: none;
+ }
+
+ .dark .theme-select {
+ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0a0a0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+ }
+
+ .ai-assistant-sheet h2,
+ .ai-assistant-sheet h3,
+ .ai-assistant-sheet label,
+ .ai-assistant-sheet strong {
+ color: var(--foreground) !important;
+ }
+
+ .ai-assistant-sheet p,
+ .ai-assistant-sheet li,
+ .ai-assistant-sheet span {
+ color: var(--muted);
+ }
+
+ .ai-assistant-sheet button {
+ border-radius: 12px;
+ }
+}
+
+@media print {
+  aside,
+  header {
+    display: none !important;
+  }
+  main {
+    padding-left: 0 !important;
+  }
+}
