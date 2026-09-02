@@ -103,7 +103,7 @@ export default function TestList() {
     <div className="space-y-8 pb-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">Tests</h1>
+          <h1 className="text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">AI-Powered Online Examination and AI-Proctoring System</h1>
           <p className="mt-1 text-sm text-[var(--rubric-muted)]">
             Create, share, and proctor assessments.
           </p>
